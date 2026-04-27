@@ -3,6 +3,7 @@ package com.tickets.model;
 import java.sql.Date;
 import java.sql.Time;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,9 +15,13 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
     private String title;
+    @Column(name = "date")
     private Date date;
+    @Column(name = "time")
     private Time time;
+    @Column(name = "capacity")
     private Long capacity;
     
     public Long getId() {
@@ -51,7 +56,7 @@ public class Event {
         this.time = time;
     }
 
-    public void setCapacirty(Long cap) {
+    public void setCapacity(Long cap) {
         this.capacity = cap;
     }
 }
