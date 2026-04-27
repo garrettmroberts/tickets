@@ -2,31 +2,46 @@ package com.tickets.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String first_name;
-    private String last_name;
-    private String email_addr;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "email_addr", nullable = false, unique = true)
+    private String emailAddr;
     private Date birthdate;
-    private String stripe_id;
+    @Column(name = "stripe_id")
+    private String stripeId;
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash;
+
+    public Long getId() {
+        return this.id;
+    }
 
     public String getFirstName() {
-        return this.first_name;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return this.last_name;
+        return this.lastName;
     }
 
     public String getEmailAddr() {
-        return this.email_addr;
+        return this.emailAddr;
     }
 
     public Date getBirthdate() {
@@ -34,19 +49,27 @@ public class User {
     }
 
     public String getStripeId() {
-        return this.stripe_id;
+        return this.stripeId;
+    }
+
+    public String getPasswordHash() {
+        return this.passwordHash;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setFirstName(String fname) {
-        this.first_name = fname;
+        this.firstName = fname;
     }
 
     public void setLastName(String lname) {
-        this.last_name = lname;
+        this.lastName = lname;
     }
 
     public void setEmailAddr(String addr) {
-        this.email_addr = addr;
+        this.emailAddr = addr;
     }
 
     public void setBirthdate(Date date) {
@@ -54,6 +77,10 @@ public class User {
     }
 
     public void setStripeId(String id) {
-        this.stripe_id = id;
+        this.stripeId = id;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }
