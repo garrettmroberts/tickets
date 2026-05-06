@@ -9,17 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tickets.dto.CreateUserRequest;
 import com.tickets.dto.SignInRequest;
+import com.tickets.dto.SignInResponse;
 import com.tickets.dto.UserResponse;
 import com.tickets.model.User;
+import com.tickets.services.AuthTokenService;
 import com.tickets.services.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final AuthTokenService authTokenService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthTokenService authTokenService) {
         this.userService = userService;
+        this.authTokenService = authTokenService;
     }
 
     @PostMapping
@@ -30,9 +34,10 @@ public class UserController {
     }
 
     @PostMapping("/sign-in")
-    public UserResponse signIn(@RequestBody SignInRequest request) {
+    public SignInResponse signIn(@RequestBody SignInRequest request) {
         User user = userService.signIn(request);
-        return mapToUserResponse(user);
+        String token = authTokenService.issueToken(user);
+        return new SignInResponse(token, mapToUserResponse(user));
     }
 
     private UserResponse mapToUserResponse(User user) {
