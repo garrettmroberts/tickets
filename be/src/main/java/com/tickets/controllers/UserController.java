@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tickets.dto.CreateUserRequest;
+import com.tickets.dto.SignInRequest;
 import com.tickets.dto.UserResponse;
 import com.tickets.model.User;
 import com.tickets.services.UserService;
@@ -25,12 +26,23 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@RequestBody CreateUserRequest request) {
         User createdUser = userService.createUser(request);
+        return mapToUserResponse(createdUser);
+    }
+
+    @PostMapping("/sign-in")
+    public UserResponse signIn(@RequestBody SignInRequest request) {
+        User user = userService.signIn(request);
+        return mapToUserResponse(user);
+    }
+
+    private UserResponse mapToUserResponse(User user) {
         return new UserResponse(
-                createdUser.getId(),
-                createdUser.getFirstName(),
-                createdUser.getLastName(),
-                createdUser.getEmailAddr(),
-                createdUser.getBirthdate(),
-                createdUser.getStripeId());
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmailAddr(),
+                user.getBirthdate(),
+                user.getStripeId(),
+                user.getRole());
     }
 }

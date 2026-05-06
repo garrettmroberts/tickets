@@ -8,6 +8,7 @@ public record CreateUserRequest(
     String emailAddr,
     Date birthdate,
     String stripeId,
+    String role,
     String password
 ) {
         

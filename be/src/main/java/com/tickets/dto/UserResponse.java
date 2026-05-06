@@ -8,5 +8,6 @@ public record UserResponse(
         String lastName,
         String emailAddr,
         Date birthdate,
-        String stripeId) {
+        String stripeId,
+        String role) {
 }

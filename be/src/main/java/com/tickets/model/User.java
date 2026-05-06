@@ -25,6 +25,8 @@ public class User {
     private Date birthdate;
     @Column(name = "stripe_id")
     private String stripeId;
+    @Column(name = "role", nullable = false)
+    private String role;
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
@@ -56,6 +58,10 @@ public class User {
         return this.passwordHash;
     }
 
+    public String getRole() {
+        return this.role;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -82,5 +88,9 @@ public class User {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
